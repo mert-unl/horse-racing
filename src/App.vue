@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RaceView from '@/views/RaceView.vue'
+</script>
 
 <template>
-  <h1 class="p-4 text-2xl font-bold text-red-500">Horse Racing</h1>
+  <RaceView />
 </template>
-
-<style scoped></style>
