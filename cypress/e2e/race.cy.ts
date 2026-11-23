@@ -56,7 +56,6 @@ describe('Horse racing', () => {
 
     describe('visual', () => {
         beforeEach(() => {
-            cy.viewport(1440, 900)
             cy.visit('/?seed=42')
         })
 

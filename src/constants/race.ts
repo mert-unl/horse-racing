@@ -18,9 +18,9 @@ export const HORSE_COLORS = [
 ] as const
 
 export const HORSE_NAMES = [
-    'Bolt Pilot', 'Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton', 'Joan Clarke',
+    'Bolt Pilot', 'Ada Lovelace', 'Grace Hopper', 'Margaret Hamill', 'Joan Clarke',
     'Roadrunner', 'Heidy Lamard', 'Alan Turing', 'Linux Torvalds',
-    'Kara Fikret', 'Ken Will Thompson', 'Gülbatur', 'Şimşek McQueen',
-    'Tim Berner', 'Guido van Rossum', 'Sarı Necmi', 'Evan Cansen',
+    'Kara Fikret', 'Will Thompson', 'Gülbatur', 'Şimşek McQueen',
+    'Tim Berner', 'Van Rossum', 'Sarı Necmi', 'Evan Cansen',
     'Sophie Wilson', 'Radia Perlman', 'Frances Pakize',
 ] as const

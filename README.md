@@ -1,70 +1,106 @@
-# .
+# Horse Racing
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 ve TypeScript ile geliştirilmiş, tarayıcıda çalışan bir at yarışı simülasyonu. Program
+oluşturulduğunda 20 at hazırlanır ve her biri 10 at içeren, farklı mesafelerde 6 yarış turu
+oluşturulur. Yarış sırasında atların ilerlemesi ve tur sonuçları ekranda gösterilir.
 
-## Recommended IDE Setup
+## Özellikler
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- At listesi; her atın adı, rengi ve kondisyon puanı
+- 1.200 m ile 2.200 m arasında değişen 6 turluk yarış programı
+- Yarışı başlatma, duraklatma ve devam ettirme
+- Yarış pisti üzerinde animasyonlu ilerleme
+- Her turun bitiş sıralamasını gösteren sonuç paneli
+- Aynı `seed` değeriyle tekrarlanabilir at ve yarış üretimi
 
-## Recommended Browser Setup
+## Ekran Görüntüleri
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Uygulama
 
-## Type Support for `.vue` Imports in TS
+![Uygulama ekran görüntüsü](./screenshots/empty.png)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+![Yarış başlangıcı](./screenshots/start.png)
 
-## Customize configuration
+![Yarış sonu](./screenshots/raceend.png)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Testler
 
-## Project Setup
+![Cypress test sonuçları](./screenshots/cypress.png)
+
+## Gereksinimler
+
+- Node.js `22.18+` (22.x) veya `24.12+`
+- npm
+
+## Kurulum ve Çalıştırma
 
 ```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
+npm ci
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Vite, geliştirme sunucusunun adresini terminalde gösterir. İsteğe bağlı olarak URL parametreleri
+kullanılabilir:
 
-```sh
-npm run build
+```text
+http://localhost:5173/?seed=42&speed=10
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+- `seed`: Pozitif bir sayı verildiğinde rastgele üretimi tekrarlanabilir hale getirir.
+- `speed`: Yarış hız çarpanıdır; `1` ile `50` arasındaki değerler kabul edilir. Geçersiz veya
+  belirtilmemiş değer `1` olarak kullanılır.
+
+## Testler ve Üretim Derlemesi
+
+Birim testlerini tek seferde çalıştırın:
 
 ```sh
-npm run test:unit
+npm run test:unit -- --run
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+Cypress'i geliştirme sunucusuna karşı etkileşimli açmak için:
 
 ```sh
 npm run test:e2e:dev
 ```
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+Üretim derlemesini oluşturup Cypress uçtan uca testlerini bu derlemeye karşı çalıştırmak için:
 
 ```sh
 npm run build
 npm run test:e2e
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+`npm run build`, TypeScript/Vue tür denetimini ve üretim derlemesini birlikte çalıştırır.
+Cypress testleri yarış akışını ve ekran görüntüsü karşılaştırmalarını kapsar.
 
-```sh
-npm run lint
+## Mimari
+
+- **Pinia:** Atlar, yarış programı ve yarış durumunun yönetimi.
+- **Composables:** Yarış döngüsü ve animasyon zamanlaması.
+- **Components:** Yarış ekranının bağımsız ve yeniden kullanılabilir bileşenlere ayrılması.
+- **Utils:** At üretimi, program oluşturma ve yarış simülasyonu mantığı.
+- **TypeScript:** Uygulama genelinde tip güvenliği.
+
+## Proje Yapısı
+
+```text
+src/
+├── components/   # At listesi, yarış pisti, kontroller, program ve sonuç bileşenleri
+├── composables/  # Yarış animasyon döngüsü
+├── constants/    # Yarış ve at ayarları
+├── stores/       # Pinia at, program ve yarış durumları
+├── types/        # TypeScript türleri
+├── utils/        # At/program üretimi, yarış simülasyonu ve yardımcılar
+└── views/        # Ana yarış ekranı
+cypress/
+├── e2e/          # Uçtan uca ve görsel testler
+└── snapshots/    # Görsel testlerin referans görüntüleri
 ```
+
+## Kullanılan Teknolojiler
+
+Vue 3, TypeScript, Pinia, Vite, Tailwind CSS, Vitest ve Cypress.
+
+> **Not:** `npm run lint` ve `npm run format` komutları mevcut yapılandırmada otomatik düzeltme
+> yapabilir; çalıştırmadan önce dosyalardaki değişiklikleri gözden geçirin.
