@@ -1,10 +1,12 @@
 import { onScopeDispose, watch } from 'vue'
 import { useRaceStore } from '@/stores/raceStore'
+import { getSpeedMultiplier } from '@/utils/gameConfig'
 
 const ROUND_PAUSE_MS = 1500
 const MAX_FRAME_SEC = 0.1
 
 export function useRaceLoop() {
+    const speed = getSpeedMultiplier()
     const race = useRaceStore()
 
     let frameId: number | null = null
@@ -14,7 +16,7 @@ export function useRaceLoop() {
     function frame(now: number) {
         const delta = Math.min((now - lastTime) / 1000, MAX_FRAME_SEC)
         lastTime = now
-        race.tick(delta)
+        race.tick(delta * speed)
         frameId = race.isRunning ? requestAnimationFrame(frame) : null
     }
 
@@ -52,7 +54,7 @@ export function useRaceLoop() {
             pauseTimer = null
             if (race.isRunning) race.nextRound()
             else scheduleNextRoundIfNeeded()
-        }, ROUND_PAUSE_MS)
+        }, ROUND_PAUSE_MS / speed)
     }
 
     watch(
